@@ -4,7 +4,9 @@
         @include('partials.head')
     </head>
     <body class="min-h-screen bg-white dark:bg-zinc-800">
-        <flux:sidebar sticky stashable class="border-e border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
+        <flux:sidebar sticky stashable 
+             class="fixed inset-y-0 left-0 z-40 w-64 ml-4 mt-4 mb-4 rounded-lg shadow-lg 
+                   border border-zinc-300 bg-zinc-50 dark:border-zinc-600 dark:bg-sky-800">
             <flux:sidebar.toggle class="lg:hidden" icon="x-mark" />
 
             <a href="{{ route('dashboard') }}" class="me-5 flex items-center space-x-2 rtl:space-x-reverse" wire:navigate>
@@ -14,17 +16,12 @@
             <flux:navlist variant="outline">
                 <flux:navlist.group :heading="__('Platform')" class="grid">
                     <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
+                    <flux:navlist.item icon="home" :href="route('juicios.index')" :current="request()->routeIs('juicios.index')" wire:navigate>{{ __('Juicios') }}</flux:navlist.item>
                 </flux:navlist.group>
             </flux:navlist>
 
             <flux:spacer />
-
-            <flux:navlist variant="outline">
-                <flux:navlist.item icon="book-open-text" href="https://laravel.com/docs/starter-kits#livewire" target="_blank">
-                {{ __('Documentation') }}
-                </flux:navlist.item>
-            </flux:navlist>
-
+            
             <!-- Desktop User Menu -->
             <flux:dropdown class="hidden lg:block" position="bottom" align="start">
                 <flux:profile
@@ -69,6 +66,13 @@
                     </form>
                 </flux:menu>
             </flux:dropdown>
+
+            <section class="w-full">                
+                <flux:radio.group x-data variant="segmented" x-model="$flux.appearance" size="sm">
+                    <flux:radio value="light" icon="sun">{{ __('Light') }}</flux:radio>
+                    <flux:radio value="dark" icon="moon">{{ __('Dark') }}</flux:radio>                    
+                </flux:radio.group>
+            </section>
         </flux:sidebar>
 
         <!-- Mobile User Menu -->
